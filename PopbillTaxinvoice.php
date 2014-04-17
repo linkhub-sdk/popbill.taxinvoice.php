@@ -62,114 +62,156 @@ class TaxinvoiceService extends PopbillBase {
     	return $this->executeCURL('/Taxinvoice',$CorpNum,$UserID,true,null,$postdata);
     }    
     
+    //삭제
     public function Delete($CorpNum,$MgtKeyType,$MgtKey,$UserID = null) {
     	if(is_null($MgtKey) || empty($MgtKey)) {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey,$CorpNum,$UserID,true,'DELETE','');
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'DELETE','');
+    }
+    
+    //수정
+    public function Update($CorpNum,$MgtKeyType,$MgtKey,$Taxinvoice, $UserID = null, $writeSpecification = false) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	if($writeSpecification) {
+    		$Taxinvoice->writeSpecification = $writeSpecification;
+    	}
+    	
+    	$postdata = json_encode($Taxinvoice);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true, 'PATCH', $postdata);
+    }
+    
+    //발행예정
+    public function Send($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$Request->memo = $Memo;
+    	
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'SEND',$postdata);
+    }
+    
+    //발행예정취소
+    public function CancelSend($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$Request->memo = $Memo;
+    	
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'CANCELSEND',$postdata);
     }
 }
 
 class Taxinvoice
 {
 	
-	public $WriteSpecification;
+	public $writeSpecification;
 	public $writeDate;
-	public $ChargeDirection;
-	public $IssueType;
-	public $IssueTiming;
-	public $TaxType;
-	public $IvoicerCorpNum;
-	public $InvoicerMgtKey;
-	public $InvoicerTaxRegID;
-	public $InvoicerCorpName;
-	public $InvoicerCEOName;
-	public $InvoicerAddr;
-	public $InvoicerBizClass;
-	public $InvoicerBizType;
-	public $InvoicerContactName;
-	public $InvoicerDeptName;
-	public $InvoicerTEL;
-	public $InvoicerHP;
-	public $InvoicerEmail;
-	public $InvoicerSMSSendYN;
+	public $chargeDirection;
+	public $issueType;
+	public $issueTiming;
+	public $taxType;
+	public $ivoicerCorpNum;
+	public $invoicerMgtKey;
+	public $invoicerTaxRegID;
+	public $invoicerCorpName;
+	public $invoicerCEOName;
+	public $invoicerAddr;
+	public $invoicerBizClass;
+	public $invoicerBizType;
+	public $invoicerContactName;
+	public $invoicerDeptName;
+	public $invoicerTEL;
+	public $invoicerHP;
+	public $invoicerEmail;
+	public $invoicerSMSSendYN;
 	
-	public $InvoiceeCorpNum;
-	public $InvoiceeType;
-	public $InvoiceeMgtKey;
-	public $InvoiceeTaxRegID;
-	public $InvoiceeCorpName;
-	public $InvoiceeCEOName;
-	public $InvoiceeAddr;
-	public $InvoiceeBizClass;
-	public $InvoiceeBizType;
-	public $InvoiceeContactName1;
-	public $InvoiceeDeptName1;
-	public $InvoiceeTEL1;
-	public $InvoiceeHP1;
-	public $InvoiceeEmail2;
-	public $InvoiceeContactName2;
-	public $InvoiceeDeptName2;
-	public $InvoiceeTEL2;
-	public $InvoiceeHP2;
-	public $InvoiceeEmail1;
-	public $InvoiceeSMSSendYN;
+	public $invoiceeCorpNum;
+	public $invoiceeType;
+	public $invoiceeMgtKey;
+	public $invoiceeTaxRegID;
+	public $invoiceeCorpName;
+	public $invoiceeCEOName;
+	public $invoiceeAddr;
+	public $invoiceeBizClass;
+	public $invoiceeBizType;
+	public $invoiceeContactName1;
+	public $invoiceeDeptName1;
+	public $invoiceeTEL1;
+	public $invoiceeHP1;
+	public $invoiceeEmail2;
+	public $invoiceeContactName2;
+	public $invoiceeDeptName2;
+	public $invoiceeTEL2;
+	public $invoiceeHP2;
+	public $invoiceeEmail1;
+	public $invoiceeSMSSendYN;
 	
-	public $TrusteeCorpNum;
-	public $TrusteeMgtKey;
-	public $TrusteeTaxRegID;
-	public $TrusteeCorpName;
-	public $TrusteeCEOName;
-	public $TrusteeAddr;
-	public $TrusteeBizClass;
-	public $TrusteeBizType;
-	public $TrusteeContactName;
-	public $TrusteeDeptName;
-	public $TrusteeTEL;
-	public $TrusteeHP;
-	public $TrusteeEmail;
-	public $TrusteeSMSSendYN;
+	public $trusteeCorpNum;
+	public $trusteeMgtKey;
+	public $trusteeTaxRegID;
+	public $trusteeCorpName;
+	public $trusteeCEOName;
+	public $trusteeAddr;
+	public $trusteeBizClass;
+	public $trusteeBizType;
+	public $trusteeContactName;
+	public $trusteeDeptName;
+	public $trusteeTEL;
+	public $trusteeHP;
+	public $trusteeEmail;
+	public $trusteeSMSSendYN;
 	
-	public $TaxTotal;
-	public $SupplyCostTotal;
-	public $TotalAmount;
-	public $ModifyCode;
-	public $PurposeType;
-	public $SerialNum;
-	public $Cash;
-	public $ChkBill;
-	public $Credit;
-	public $Node;
-	public $Remark1;
-	public $Remark2;
-	public $Remark3;
-	public $Kwon;
-	public $Ho;
-	public $BusinessLicenseYN;
-	public $BankBookYN;
-	public $FaxSendYN;
-	public $FaxReceiveNum;
-	public $OriginalTaxinvoiceKey;
-	public $DetailList;
-	public $AddContactList;
+	public $taxTotal;
+	public $supplyCostTotal;
+	public $totalAmount;
+	public $modifyCode;
+	public $purposeType;
+	public $serialNum;
+	public $cash;
+	public $chkBill;
+	public $credit;
+	public $note;
+	public $remark1;
+	public $remark2;
+	public $remark3;
+	public $kwon;
+	public $ho;
+	public $businessLicenseYN;
+	public $bankBookYN;
+	public $faxsendYN;
+	public $faxreceiveNum;
+	public $originalTaxinvoiceKey;
+	public $detailList;
+	public $addContactList;
 	
 }
 class TaxinvoiceDetail {
-	public $SerialNum;
-	public $PurchaseDT;
-	public $ItemName;
-	public $Spec;
-	public $Qty;
-	public $UnitCost;
-	public $SupplyCost;
-	public $Tax;
-	public $Remark;
+	public $serialNum;
+	public $purchaseDT;
+	public $itemName;
+	public $spec;
+	public $qty;
+	public $unitCost;
+	public $supplyCost;
+	public $tax;
+	public $remark;
 }
 class TaxinvoiceAddContact {
-	public $SerialNum;
-	public $Email;
-	public $ContactName;
+	public $serialNum;
+	public $email;
+	public $contactName;
 }
 class ENumMgtKeyType {
 	const SELL = 'SELL';

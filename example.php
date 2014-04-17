@@ -16,6 +16,7 @@ $TaxinvoiceService = new TaxinvoiceService($PartnerID,$SecretKey);
 
 $TaxinvoiceService->IsTest(true);
 
+/*
 echo substr($TaxinvoiceService->GetPopbillURL('1231212312','userid','LOGIN'),0,50). ' ...';
 echo chr(10);
 
@@ -31,78 +32,109 @@ echo chr(10);
 $InUse = $TaxinvoiceService->CheckMgtKeyInUse('1231212312',ENumMgtKeyType::SELL,'123123');
 echo $InUse ? '사용중':'미사용중';
 echo chr(10);
+*/
 
 $Taxinvoice = new Taxinvoice();
 
 $Taxinvoice->writeDate = '20140410';
-$Taxinvoice->IssueType = '정발행';
-$Taxinvoice->ChargeDirection = '정과금';
-$Taxinvoice->PurposeType = '영수';
-$Taxinvoice->TaxType = '과세';
-$Taxinvoice->IssueTiming = '직접발행';
+$Taxinvoice->issueType = '정발행';
+$Taxinvoice->chargeDirection = '정과금';
+$Taxinvoice->purposeType = '영수';
+$Taxinvoice->taxType = '과세';
+$Taxinvoice->issueTiming = '직접발행';
 
-$Taxinvoice->InvoicerCorpNum = '1231212312';
-$Taxinvoice->InvoicerCorpName = '공급자상호';
-$Taxinvoice->InvoicerMgtKey = '123123';
-$Taxinvoice->InvoicerCEOName = '공급자 대표자성명';
-$Taxinvoice->InvoicerAddr = '공급자 주소';
-$Taxinvoice->InvoicerContactName = '공급자 담당자성명';
-$Taxinovice->InvoicerEmail = 'tester@test.com';
-$Taxinvoice->InvoicerTEL = '070-0000-0000';
-$Taxinvoice->InvoicerHP = '010-0000-0000';
-$Taxinvoice->InvoicerSMSSendYN = false;
+$Taxinvoice->invoicerCorpNum = '1231212312';
+$Taxinvoice->invoicerCorpName = '공급자상호';
+$Taxinvoice->invoicerMgtKey = '123123';
+$Taxinvoice->invoicerCEOName = '공급자 대표자성명';
+$Taxinvoice->invoicerAddr = '공급자 주소';
+$Taxinvoice->invoicerContactName = '공급자 담당자성명';
+$Taxinovice->invoicerEmail = 'tester@test.com';
+$Taxinvoice->invoicerTEL = '070-0000-0000';
+$Taxinvoice->invoicerHP = '010-0000-0000';
+$Taxinvoice->invoicerSMSSendYN = false;
 
-$Taxinvoice->InvoiceeType = '사업자';
-$Taxinvoice->InvoiceeCorpNum = '8888888888';
-$Taxinvoice->InvoiceeCorpName = '공급받는자 상호';
-$Taxinvoice->InvoiceeCEOName = '공급받는자 대표자성명';
-$Taxinvoice->InvoiceeAddr = '공급받는자 주소';
-$Taxinvoice->InvoiceeContactName1 = '공급받는자 담당자성명';
-$Taxinovice->InvoiceeEmail1 = 'tester@test.com';
-$Taxinvoice->InvoiceeTEL1 = '070-0000-0000';
-$Taxinvoice->InvoiceeHP1 = '010-0000-0000';
-$Taxinvoice->InvoiceeSMSSendYN = false;
+$Taxinvoice->invoiceeType = '사업자';
+$Taxinvoice->invoiceeCorpNum = '8888888888';
+$Taxinvoice->invoiceeCorpName = '공급받는자 상호';
+$Taxinvoice->invoiceeCEOName = '공급받는자 대표자성명';
+$Taxinvoice->invoiceeAddr = '공급받는자 주소';
+$Taxinvoice->invoiceeContactName1 = '공급받는자 담당자성명';
+$Taxinovice->invoiceeEmail1 = 'tester@test.com';
+$Taxinvoice->invoiceeTEL1 = '070-0000-0000';
+$Taxinvoice->invoiceeHP1 = '010-0000-0000';
+$Taxinvoice->invoiceeSMSSendYN = false;
 
-$Taxinvoice->SupplyCostTotal = '100000';
-$Taxinvoice->TaxTotal = '10000';
-$Taxinvoice->TotalAmount = '110000';
+$Taxinvoice->supplyCostTotal = '100000';
+$Taxinvoice->taxTotal = '10000';
+$Taxinvoice->totalAmount = '110000';
 
-$Taxinvoice->OriginalTaxinvoiceKey = '';
-$Taxinvoice->SerialNum = '123';
-$Taxinvoice->Cash = '';
-$Taxinvoice->ChkBill = '';
-$Taxinvoice->Note = '';
-$Taxinvoice->Credit = '';
-$Taxinvoice->Remark1 = '비고1';
-$Taxinvoice->Remark2 = '비고2';
-$Taxinvoice->Remark3 = '비고3';
-$Taxinvoice->Kwon = '1';
-$Taxinvoice->Hp = '1';
+$Taxinvoice->originalTaxinvoiceKey = '';
+$Taxinvoice->serialNum = '123';
+$Taxinvoice->cash = '';
+$Taxinvoice->chkBill = '';
+$Taxinvoice->note = '';
+$Taxinvoice->credit = '';
+$Taxinvoice->remark1 = '비고1';
+$Taxinvoice->remark2 = '비고2';
+$Taxinvoice->remark3 = '비고3';
+$Taxinvoice->kwon = '1';
+$Taxinvoice->ho = '1';
 
-$Taxinvoice->BusinessLicenseYN = false;
-$Taxinvoice->BankBookYN = false;
-$Taxinvoice->FaxReceiveNum = '';
-$Taxinvoice->FaxSendYN = false;
+$Taxinvoice->businessLicenseYN = false;
+$Taxinvoice->bankBookYN = false;
+$Taxinvoice->faxreceiveNum = '';
+$Taxinvoice->faxsendYN = false;
 
-$Taxinvoice->DetailList = array();
+$Taxinvoice->detailList = array();
 
-$Taxinvoice->DetailList[] = new TaxinvoiceDetail();
-$Taxinvoice->DetailList[0]->SerialNum = 1;
-$Taxinvoice->DetailList[0]->PurchaseDT = '20140410';
-$Taxinvoice->DetailList[0]->ItemName = '품목명1번';
-$Taxinvoice->DetailList[0]->Spec = '규격';
-$Taxinvoice->DetailList[0]->Qty = '1';
-$Taxinvoice->DetailList[0]->UnitCost = '100000';
-$Taxinvoice->DetailList[0]->SupplyCost = '100000';
-$Taxinvoice->DetailList[0]->Tax = '10000';
-$Taxinvoice->DetailList[0]->Remark = '품목비고';
+$Taxinvoice->detailList[] = new TaxinvoiceDetail();
+$Taxinvoice->detailList[0]->serialNum = 1;
+$Taxinvoice->detailList[0]->purchaseDT = '20140410';
+$Taxinvoice->detailList[0]->itemName = '품목명1번';
+$Taxinvoice->detailList[0]->spec = '규격';
+$Taxinvoice->detailList[0]->qty = '1';
+$Taxinvoice->detailList[0]->unitCost = '100000';
+$Taxinvoice->detailList[0]->supplyCost = '100000';
+$Taxinvoice->detailList[0]->tax = '10000';
+$Taxinvoice->detailList[0]->remark = '품목비고';
 
-$Taxinvoice->DetailList[] = new TaxinvoiceDetail();
-$Taxinvoice->DetailList[1]->SerialNum = 2;
-$Taxinvoice->DetailList[1]->ItemName = '품목명2번';
+$Taxinvoice->detailList[] = new TaxinvoiceDetail();
+$Taxinvoice->detailList[1]->serialNum = 2;
+$Taxinvoice->detailList[1]->itemName = '품목명2번';
 
 try {
-	$result = $TaxinvoiceService->Register('1231212312',$Taxinvoice,false);
+	$result = $TaxinvoiceService->Register('1231212312',$Taxinvoice,null,false);
+	echo $result->message;
+}
+catch(PopbillException $pe) {
+	echo $pe->getMessage();
+}
+
+echo chr(10);
+
+try {
+	$result = $TaxinvoiceService->Update('1231212312',EnumMgtKeyType::SELL,'123123',$Taxinvoice,null,false);
+	echo $result->message;
+}
+catch(PopbillException $pe) {
+	echo $pe->getMessage();
+}
+
+echo chr(10);
+
+try {
+	$result = $TaxinvoiceService->Send('1231212312',EnumMgtKeyType::SELL,'123123','예정메모');
+	echo $result->message;
+}
+catch(PopbillException $pe) {
+	echo $pe->getMessage();
+}
+
+echo chr(10);
+
+try {
+	$result = $TaxinvoiceService->CancelSend('1231212312',EnumMgtKeyType::SELL,'123123','예정 취소 메모');
 	echo $result->message;
 }
 catch(PopbillException $pe) {
