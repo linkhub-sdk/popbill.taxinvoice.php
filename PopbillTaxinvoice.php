@@ -29,7 +29,6 @@ class TaxinvoiceService extends PopbillBase {
     //팝빌 세금계산서 연결 url
     public function GetURL($CorpNum,$UserID,$TOGO) {
     	$response = $this->executeCURL('/Taxinvoice/?TG='.$TOGO,$CorpNum,$UserID);
-    	
     	return $response->url;
     }
     
@@ -43,22 +42,17 @@ class TaxinvoiceService extends PopbillBase {
     		$response = $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey,$CorpNum);
     		return is_null($response->itemKey) == false;
     	}catch(PopbillException $pe) {
-    		if($pe->getCode() == -11000005) {
-    			return false;
-    		}
+    		if($pe->getCode() == -11000005) {return false;}
     		throw $pe;
     	}
     }
     
     //임시저장
     public function Register($CorpNum, $Taxinvoice, $UserID = null, $writeSpecification = false) {
-    	
     	if($writeSpecification) {
     		$Taxinvoice->writeSpecification = $writeSpecification;
     	}
-    	
     	$postdata = json_encode($Taxinvoice);
-    	
     	return $this->executeCURL('/Taxinvoice',$CorpNum,$UserID,true,null,$postdata);
     }    
     
@@ -67,7 +61,6 @@ class TaxinvoiceService extends PopbillBase {
     	if(is_null($MgtKey) || empty($MgtKey)) {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
-    	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'DELETE','');
     }
     
@@ -76,13 +69,11 @@ class TaxinvoiceService extends PopbillBase {
     	if(is_null($MgtKey) || empty($MgtKey)) {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
-    	
     	if($writeSpecification) {
     		$Taxinvoice->writeSpecification = $writeSpecification;
     	}
     	
     	$postdata = json_encode($Taxinvoice);
-    	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true, 'PATCH', $postdata);
     }
     
@@ -94,7 +85,6 @@ class TaxinvoiceService extends PopbillBase {
     	
     	$Request = new MemoRequest();
     	$Request->memo = $Memo;
-    	
     	$postdata = json_encode($Request);
     	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'SEND',$postdata);
@@ -107,7 +97,6 @@ class TaxinvoiceService extends PopbillBase {
     	}
     	$Request = new MemoRequest();
     	$Request->memo = $Memo;
-    	
     	$postdata = json_encode($Request);
     	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'CANCELSEND',$postdata);
