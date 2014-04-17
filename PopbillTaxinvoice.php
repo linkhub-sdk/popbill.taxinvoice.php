@@ -92,6 +92,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
+    	$Request = new MemoRequest();
     	$Request->memo = $Memo;
     	
     	$postdata = json_encode($Request);
@@ -104,7 +105,7 @@ class TaxinvoiceService extends PopbillBase {
     	if(is_null($MgtKey) || empty($MgtKey)) {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
-    	
+    	$Request = new MemoRequest();
     	$Request->memo = $Memo;
     	
     	$postdata = json_encode($Request);
@@ -217,5 +218,8 @@ class ENumMgtKeyType {
 	const SELL = 'SELL';
 	const BUY = 'BUY';
 	const TRUSTEE = 'TRUSTEE';
+}
+class MemoRequest {
+	public $memo;
 }
 ?>
