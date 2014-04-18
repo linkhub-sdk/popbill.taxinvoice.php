@@ -16,42 +16,6 @@ $TaxinvoiceService = new TaxinvoiceService($PartnerID,$SecretKey);
 
 $TaxinvoiceService->IsTest(true);
 
-try {
-	echo $TaxinvoiceService->GetUnitCost('1231212312');
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-echo chr(10);
-
-
-try {
-	$result = $TaxinvoiceService->GetEmailPublicKeys('1231212312');
-	echo json_encode($result);
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-echo chr(10);
-
-/*
-echo substr($TaxinvoiceService->GetPopbillURL('1231212312','userid','LOGIN'),0,50). ' ...';
-echo chr(10);
-
-echo $TaxinvoiceService->GetBalance('1231212312');
-echo chr(10);
-echo $TaxinvoiceService->GetPartnerBalance('1231212312');
-echo chr(10);
-
-
-echo substr($TaxinvoiceService->GetURL('1231212312','userid','SBOX'),0,50). ' ...';
-echo chr(10);
-
-$InUse = $TaxinvoiceService->CheckMgtKeyInUse('1231212312',ENumMgtKeyType::SELL,'123123');
-echo $InUse ? '사용중':'미사용중';
-echo chr(10);
-*/
-
 $Taxinvoice = new Taxinvoice();
 
 $Taxinvoice->writeDate = '20140410';
@@ -131,8 +95,11 @@ catch(PopbillException $pe) {
 
 echo chr(10);
 
+
+//파일 첨부
 try {
-	$result = $TaxinvoiceService->Update('1231212312',EnumMgtKeyType::SELL,'123123',$Taxinvoice,null,false);
+	$filepath = './uploadtest.jpg';
+	$result = $TaxinvoiceService->AttachFile('1231212312',EnumMgtKeyType::SELL,'123123',$filepath,null);
 	echo $result->message;
 }
 catch(PopbillException $pe) {
@@ -142,7 +109,7 @@ catch(PopbillException $pe) {
 echo chr(10);
 
 try {
-	$result = $TaxinvoiceService->GetDetailInfo('1231212312',EnumMgtKeyType::SELL,'123123');
+	$result = $TaxinvoiceService->GetFiles('1231212312',EnumMgtKeyType::SELL,'123123');
 	echo json_encode($result);
 }
 catch(PopbillException $pe) {
@@ -151,38 +118,14 @@ catch(PopbillException $pe) {
 
 echo chr(10);
 
-try {
-	$result = $TaxinvoiceService->Send('1231212312',EnumMgtKeyType::SELL,'123123','예정메모');
-	echo $result->message;
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
+echo $result[0]->attachedFile;
+
 
 echo chr(10);
 
-try {
-	$result = $TaxinvoiceService->CancelSend('1231212312',EnumMgtKeyType::SELL,'123123','예정 취소 메모');
-	echo $result->message;
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-
-echo chr(10);
 
 try {
-	$result = $TaxinvoiceService->Issue('1231212312',EnumMgtKeyType::SELL,'123123','발행 메모',null,false);
-	echo $result->message;
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-
-echo chr(10);
-
-try {
-	$result = $TaxinvoiceService->GetInfo('1231212312',EnumMgtKeyType::SELL,'123123');
+	$result = $TaxinvoiceService->DeleteFile('1231212312',EnumMgtKeyType::SELL,'123123',$result[0]->attachedFile );
 	echo json_encode($result);
 }
 catch(PopbillException $pe) {
@@ -190,27 +133,6 @@ catch(PopbillException $pe) {
 }
 
 echo chr(10);
-
-try {
-	$result = $TaxinvoiceService->SendEmail('1231212312',EnumMgtKeyType::SELL,'123123','test@test.com');
-	echo $result->message;
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-
-echo chr(10);
-
-try {
-	$result = $TaxinvoiceService->GetLogs('1231212312',EnumMgtKeyType::SELL,'123123');
-	echo json_encode($result);
-}
-catch(PopbillException $pe) {
-	echo $pe->getMessage();
-}
-
-echo chr(10);
-
 
 try {
 	$result = $TaxinvoiceService->Delete('1231212312',EnumMgtKeyType::SELL,'123123');

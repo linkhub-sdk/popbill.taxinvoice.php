@@ -101,6 +101,259 @@ class TaxinvoiceService extends PopbillBase {
     	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'CANCELSEND',$postdata);
     }
+    
+    //발행예정 승인
+    public function Accept($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'ACCEPT',$postdata);
+    }
+    
+    //발행예정 거부
+    public function Deny($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'DENY',$postdata);
+    }
+    
+    //발행
+    public function Issue($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$EmailSubject = null , $ForceIssue = false, $UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new IssueRequest();
+    	$Request->memo = $Memo;
+    	$Request->emailSubject = $EmailSubject;
+    	$Request->forceIssue = $ForceIssue;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'ISSUE',$postdata);
+    }
+    
+    //발행취소
+    public function CancelIssue($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'CANCELISSUE',$postdata);
+    }
+    
+    //역)발행요청
+    public function Request($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'REQUEST',$postdata);
+    }
+    
+    //역)발행요청 거부
+    public function Refuse($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'REFUSE',$postdata);
+    }
+    
+    //역)발행요청 취소
+    public function CancelRequest($CorpNum,$MgtKeyType,$MgtKey,$Memo = '',$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	$Request = new MemoRequest();
+    	$Request->memo = $Memo;
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'CANCELREQUEST',$postdata);
+    }
+    
+    //국세청 즉시전송 요청
+    public function SendToNTS($CorpNum,$MgtKeyType,$MgtKey,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'NTS','');
+    }
+    
+    //알림메일 재전송
+    public function SendEmail($CorpNum,$MgtKeyType,$MgtKey,$Receiver,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$Request = array('receiver' => $Receiver);
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'EMAIL',$postdata);
+    }
+    
+    //알림문자 재전송
+    public function SendSMS($CorpNum,$MgtKeyType,$MgtKey,$Sender,$Receiver,$Contents,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$Request = array('receiver' => $Receiver,'sender'=>$sender,'contents' => $Contents);
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'SMS',$postdata);
+    }
+    
+    //알림팩스 재전송
+    public function SendFAX($CorpNum,$MgtKeyType,$MgtKey,$Sender,$Receiver,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$Request = array('receiver' => $Receiver,'sender'=>$sender);
+    	$postdata = json_encode($Request);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'FAX',$postdata);
+    }
+    
+    //세금계산서 요약정보 및 상태정보 확인
+    public function GetInfo($CorpNum,$MgtKeyType,$MgtKey) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum);
+    }
+    
+    //세금계산서 상세정보 확인 
+    public function GetDetailInfo($CorpNum,$MgtKeyType,$MgtKey) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?Detail', $CorpNum);
+    }
+    
+    //세금계산서 요약정보 다량확인 최대 1000건
+    public function GetInfos($CorpNum,$MgtKeyType,$MgtKeyList = array()) {
+    	if(is_null($MgtKeyList) || empty($MgtKeyList)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$postdata = json_encode($MgtKeyList);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType, $CorpNum, null, true,null,$postdata);
+    }
+    
+    //세금계산서 문서이력 확인 
+    public function GetLogs($CorpNum,$MgtKeyType,$MgtKey) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'/Logs', $CorpNum);
+    }
+    
+    //파일첨부
+    public function AttachFile($CorpNum,$MgtKeyType,$MgtKey,$FilePath , $UserID = null) {
+    
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    
+    	$postdata = array('Filedata' => '@'.$FilePath);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'/Files', $CorpNum, $UserID, true,null,$postdata,true);
+    
+    }
+    
+    //첨부파일 목록 확인 
+    public function GetFiles($CorpNum,$MgtKeyType,$MgtKey) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'/Files', $CorpNum);
+    }
+    
+    //첨부파일 삭제 
+    public function DeleteFile($CorpNum,$MgtKeyType,$MgtKey,$FileID,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	if(is_null($FileID) || empty($FileID)) {
+    		throw new PopbillException('파일아이디가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'/Files/'.$FileID, $CorpNum,$UserID,true,'DELETE','');
+    }
+    
+    //팝업URL
+    public function GetPopUpURL($CorpNum,$MgtKeyType,$MgtKey,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=POPUP', $CorpNum,$UserID);
+    }
+    
+    //인쇄URL
+    public function GetPrintURL($CorpNum,$MgtKeyType,$MgtKey,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=PRINT', $CorpNum,$UserID);
+    }
+    
+    //공급받는자 메일URL
+    public function GetMailURL($CorpNum,$MgtKeyType,$MgtKey,$UserID = null) {
+    	if(is_null($MgtKey) || empty($MgtKey)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=MAIL', $CorpNum,$UserID);
+    }
+    
+    //세금계산서 다량인쇄 URL
+    public function GetMassPrintURL($CorpNum,$MgtKeyType,$MgtKeyList = array(),$UserID = null) {
+    	if(is_null($MgtKeyList) || empty($MgtKeyList)) {
+    		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
+    	}
+    	
+    	$postdata = json_encode($MgtKeyList);
+    	
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'?Print', $CorpNum, $UserID, true,null,$postdata);
+    }
+    
+    //회원인증서 만료일 확인
+    public function GetCertificateExpireDate($CorpNum) {
+    	return $this->executeCURL('/Taxinvoice?cfg=CERT', $CorpNum)->certificateExpiration;
+    }
+    
+    //발행단가 확인
+    public function GetUnitCost($CorpNum) {
+    	return $this->executeCURL('/Taxinvoice?cfg=UNITCOST', $CorpNum)->unitCost;
+    }
+    
+    //대용량 연계사업자 유통메일목록 확인
+    public function GetEmailPublicKeys($CorpNum) {
+    	return $this->executeCURL('/Taxinvoice/EmailPublicKeys', $CorpNum);
+    }
+    
 }
 
 class Taxinvoice
@@ -210,5 +463,10 @@ class ENumMgtKeyType {
 }
 class MemoRequest {
 	public $memo;
+}
+class IssueRequest {
+	public $memo;
+	public $emailSubject;
+	public $forceIssue;
 }
 ?>
