@@ -215,7 +215,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	$Request = array('receiver' => $Receiver,'sender'=>$sender,'contents' => $Contents);
+    	$Request = array('receiver' => $Receiver,'sender'=>$Sender,'contents' => $Contents);
     	$postdata = json_encode($Request);
     	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'SMS',$postdata);
@@ -227,7 +227,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	$Request = array('receiver' => $Receiver,'sender'=>$sender);
+    	$Request = array('receiver' => $Receiver,'sender'=>$Sender);
     	$postdata = json_encode($Request);
     	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey, $CorpNum, $UserID, true,'FAX',$postdata);
