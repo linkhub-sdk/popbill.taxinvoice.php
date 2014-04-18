@@ -297,7 +297,6 @@ class TaxinvoiceService extends PopbillBase {
     	if(is_null($FileID) || empty($FileID)) {
     		throw new PopbillException('파일아이디가 입력되지 않았습니다.',-99999999);
     	}
-    	
     	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'/Files/'.$FileID, $CorpNum,$UserID,true,'DELETE','');
     }
     

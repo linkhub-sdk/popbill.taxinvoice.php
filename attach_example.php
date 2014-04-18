@@ -118,15 +118,9 @@ catch(PopbillException $pe) {
 
 echo chr(10);
 
-echo $result[0]->attachedFile;
-
-
-echo chr(10);
-
-
 try {
 	$result = $TaxinvoiceService->DeleteFile('1231212312',EnumMgtKeyType::SELL,'123123',$result[0]->attachedFile );
-	echo json_encode($result);
+	echo $result->message;
 }
 catch(PopbillException $pe) {
 	echo $pe->getMessage();
