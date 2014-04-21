@@ -306,7 +306,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=POPUP', $CorpNum,$UserID);
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=POPUP', $CorpNum,$UserID)->url;
     }
     
     //인쇄URL
@@ -315,7 +315,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=PRINT', $CorpNum,$UserID);
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=PRINT', $CorpNum,$UserID)->url;
     }
     
     //공급받는자 메일URL
@@ -324,7 +324,7 @@ class TaxinvoiceService extends PopbillBase {
     		throw new PopbillException('관리번호가 입력되지 않았습니다.',-99999999);
     	}
     	
-    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=MAIL', $CorpNum,$UserID);
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'/'.$MgtKey.'?TG=MAIL', $CorpNum,$UserID)->url;
     }
     
     //세금계산서 다량인쇄 URL
@@ -335,7 +335,7 @@ class TaxinvoiceService extends PopbillBase {
     	
     	$postdata = json_encode($MgtKeyList);
     	
-    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'?Print', $CorpNum, $UserID, true,null,$postdata);
+    	return $this->executeCURL('/Taxinvoice/'.$MgtKeyType.'?Print', $CorpNum, $UserID, true,null,$postdata)->url;
     }
     
     //회원인증서 만료일 확인
