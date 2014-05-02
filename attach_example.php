@@ -1,12 +1,6 @@
 <?php
 
 require_once 'PopbillTaxinvoice.php';
-use Popbill\PopbillException;
-use Popbill\TaxinvoiceService;
-use Popbill\ENumMgtKeyType;
-use Popbill\Taxinvoice;
-use Popbill\TaxinvoiceDetail;
-use Popbill\TaxinvoiceAddContact;
 
 $PartnerID = 'TESTER';
 $SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
