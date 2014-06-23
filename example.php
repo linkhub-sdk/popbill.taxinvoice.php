@@ -2,11 +2,11 @@
 
 require_once 'PopbillTaxinvoice.php';
 
-$PartnerID = 'TESTER';
+$LinkID = 'TESTER';
 $SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
 
 
-$TaxinvoiceService = new TaxinvoiceService($PartnerID,$SecretKey);
+$TaxinvoiceService = new TaxinvoiceService($LinkID,$SecretKey);
 
 $TaxinvoiceService->IsTest(true);
 
