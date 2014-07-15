@@ -363,7 +363,7 @@ class Taxinvoice
 	public $issueType;
 	public $issueTiming;
 	public $taxType;
-	public $ivoicerCorpNum;
+	public $invoicerCorpNum;
 	public $invoicerMgtKey;
 	public $invoicerTaxRegID;
 	public $invoicerCorpName;
