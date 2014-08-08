@@ -3,7 +3,7 @@
 require_once 'PopbillTaxinvoice.php';
 
 $LinkID = 'TESTER';
-$SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
+$SecretKey = 'koHkuukeNY+AO52II2m/e23WdSiKCs0UeeHTWYEES0c=';
 
 
 $TaxinvoiceService = new TaxinvoiceService($LinkID,$SecretKey);
