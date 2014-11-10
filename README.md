@@ -1,4 +1,4 @@
-popbill.messaging.example.php
+popbill.taxinvoice.php
 =============================
 
 팝빌 세금계산서 SDK for PHP5
